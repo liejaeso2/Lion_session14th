@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>기초대사량 계산기</title>
+    <style>
+        /* CSS로 디자인 입히기 🦁 */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            background-color: #f4f7f6;
+            font-family: sans-serif;
+        }
+
+
+        .title {}
+
+        .container {
+            width: 700px;
+            margin: 0px;
+        }
+
+        h1 {
+            text-align: center;
+            color: brown;
+        }
+
+        input,
+        select {
+            margin: 12px;
+            padding: 16px;
+            border: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1 class="title">🦁 기초대사량 계산기</h1>
+        <label for="gender">성별</label>
+        <select id="gender">
+            <option value="male">남성</option>
+            <option value="female">여성</option>
+        </select>
+        <label for="height">키 </label>
+        <input type="number" id="height">
+        <label for="weight">몸무게 </label>
+        <input type="number" id="weight">
+        <label for="age">나이 </label>
+        <input type="number" id="age">
+        <button onclick="calculate()">계산하기</button>
+        <div id="result">결과:</div>
+
+
+
+        <script>
+            function calculate() {
+                // HTML 요소에서 값을 가져옵니다.
+                const height = Number(document.getElementById("height").value);
+                const weight = Number(document.getElementById("weight").value);
+                const age = Number(document.getElementById("age").value);
+                const gender = document.getElementById("gender").value;
+
+                // 입력값이 비어있는지 확인
+                if (!height || !weight || !age) {
+                    alert("모든 정보를 입력해주세요!");
+                    return;
+                }
+
+                let bmr;
+
+                // 미플린-세인트 지올(Mifflin-St Jeor) 공식 적용
+                if (gender === "male") {
+                    bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
+                } else {
+                    bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+                }
+
+                // 결과를 화면에 출력 (반올림 처리)
+                document.getElementById("result").innerText =
+                    "당신의 기초대사량은 " + Math.round(bmr) + " kcal 입니다.";
+            }
+        </script>
+</body>
+
+</html>
